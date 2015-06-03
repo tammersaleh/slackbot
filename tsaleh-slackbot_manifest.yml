@@ -1,0 +1,8 @@
+---
+applications:
+- name: tsaleh-slackbot
+  memory: 64M
+  instances: 2
+  timeout: 10
+  host: tsaleh-slackbot
+  domain: cfapps.pez.pivotal.io
