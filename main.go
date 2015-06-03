@@ -1,40 +1,13 @@
 package main
 
 import (
-	"os"
-
-	"github.com/danryan/hal"
-	_ "github.com/danryan/hal/adapter/shell"
-	_ "github.com/danryan/hal/store/memory"
+	"github.com/go-martini/martini"
 )
 
-var pingHandler = hal.Hear(`ping`, func(res *hal.Response) error {
-	return res.Send("PONG")
-})
-
-var echoHandler = hal.Respond(`echo (.+)`, func(res *hal.Response) error {
-	return res.Reply(res.Match[1])
-})
-
-func run() int {
-	robot, err := hal.NewRobot()
-	if err != nil {
-		hal.Logger.Error(err)
-		return 1
-	}
-
-	robot.Handle(
-		pingHandler,
-		echoHandler,
-	)
-
-	if err := robot.Run(); err != nil {
-		hal.Logger.Error(err)
-		return 1
-	}
-	return 0
-}
-
 func main() {
-	os.Exit(run())
+	m := martini.Classic()
+	m.Get("/nobueno", func() string {
+		return "https://dl.dropbox.com/s/cr9rl6r6pqsbe1n/maxresdefault.jpg_1280720_2015-06-03_1_pm-48-12.png?dl=0"
+	})
+	m.Run()
 }
